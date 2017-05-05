@@ -1,0 +1,171 @@
+{{#extend "stylesheets"}}
+
+		<!-- Plugins -->
+		<link href="/plugins/magnific-popup/magnific-popup.css" rel="stylesheet">
+		<link href="/css/animations.css" rel="stylesheet">
+
+{{/extend}}
+
+			<!-- main-container start -->
+			<!-- ================ -->
+			<section class="main-container">
+
+				<div class="container">
+					<div class="row">
+
+						<!-- main start -->
+						<!-- ================ -->
+						<div class="main col-md-12">
+
+							<!-- page-title start -->
+							<!-- ================ -->
+							<h1 class="page-title">精彩回放</h1>
+							<div class="separator-2"></div>
+							<!-- page-title end -->
+							<p></p>
+							{{#if have_videos}}
+							<!-- grid start -->
+								{{#each videos}}
+								<div class="row grid-space-20">
+									<!-- grid item start -->
+									{{#each this.line}}
+									<div class="col-md-4 col-sm-6">
+										<!-- blogpost start -->
+										<article class="clearfix blogpost">
+											<div class="overlay-container">
+												<img src="/showImage?imgfileid={{this.coverfileid}}" alt="">
+												<div class="overlay">
+													<div class="overlay-links">
+														<a href="/showImage?imgfileid={{this.coverfileid}}" class="popup-img"><i class="fa fa-search-plus"></i></a>
+														<a href="/video_play?videoid={{this.videoid}}"><i class="fa fa-link"></i></a>
+													</div>
+													<span>{{this.videoname}}</span>
+												</div>
+											</div>
+											<div class="blogpost-body">
+												<h5 class="title"><a href="/video_play?videoid={{this.videoid}}">{{this.videoname}}</a></h5>
+												<span><strong>主讲：</strong>{{this.expert}}</span><br>
+												<span><strong>医院：</strong>{{this.experthospital}}</span><br>
+												<span><strong>演讲时间：</strong>{{this.coursetime}}</i>
+											</div>
+											<footer class="clearfix">
+												<div class="testimonial-info-1">
+													<i class="fa fa-comment-o pr-5"></i>评论{{this.comments}} |
+													<i class="fa fa-star-o pr-5"></i>播放{{this.demands}} |
+													<a><i class="fa fa-thumbs-o-up pr-5 praiser" id="{{this.videoid}}">点赞</i></a><span id="praiser{{this.videoid}}">{{this.praises}}</span>|
+													<a><i class="fa fa-star-o pr-5 favorites" id="{{this.videoid}}">收藏</i></a>
+													<a class="pull-right" href="/video_play?videoid={{this.videoid}}"><span>播放</span></a>
+												</div>
+											</footer>
+										</article>
+										<!-- blogpost end -->
+									</div>
+									{{/each}}
+									<!-- grid item end -->
+								</div>
+								{{/each}}
+
+							<!-- grid end -->
+							<div class="clearfix"></div>
+
+							<!-- pagination start -->
+							<ul class="pagination">
+								{{#if prepage}}
+								<li><a href="/video_review?pagenum={{prepagenum}}">上一页</a></li>
+								<li><a href="/video_review">1</a></li>
+								{{else}}
+								<li><a>上一页</a></li>
+								{{/if}}
+								{{#if hava_precolon}}
+								<li><a>...</a></li>
+								{{/if}}
+								{{#each prepages}}
+								<li><a href="/video_review?pagenum={{this}}">{{this}}</a></li>
+								{{/each}}
+								<li class="active"><a>{{pagenum}}<span class="sr-only">(current)</span></a></li>
+								{{#each nextpages}}
+								<li><a href="/video_review?pagenum={{this}}">{{this}}</a></li>
+								{{/each}}
+								{{#if hava_postcolon}}
+								<li><a>...</a></li>
+								{{/if}}
+								{{#if nextpage}}
+								<li><a href="/video_review?pagenum={{lastpagenum}}">{{lastpagenum}}</a></li>
+								<li><a href="/video_review?pagenum={{nextpagenum}}">下一页</a></li>
+								{{else}}
+								<li><a>下一页</a></li>
+								{{/if}}
+							</ul>
+
+							{{else}}
+
+							<h2>没有精彩回放视频！</h2>
+
+							{{/if}}
+						</div>
+						<!-- main end -->
+
+					</div>
+				</div>
+			</section>
+			<!-- main-container end -->
+
+{{#extend "bottom_scripts"}}
+		<!-- JavaScript files placed at the end of the document so the pages load faster
+		================================================== -->
+		<!-- Jquery and Bootstap core js files -->
+		<script type="text/javascript" src="/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+
+		<!-- Modernizr javascript -->
+		<script type="text/javascript" src="/plugins/modernizr.js"></script>
+
+		<!-- Magnific Popup javascript -->
+		<script type="text/javascript" src="/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+		<!-- Appear javascript -->
+		<script type="text/javascript" src="/plugins/jquery.appear.js"></script>
+
+			<!-- Initialization of Plugins -->
+		<script type="text/javascript" src="/js/template.js"></script>
+
+		<script>
+		$(document).ready(function() {
+				$(".praiser").bind({
+					 click:function(event){
+						 var videoid = event.target.id;
+						 $.ajax({
+							 url: "/video_praiser?videoid="+videoid,
+							 type: "POST",
+							 success: function (json) {
+									if(json.result == 1){
+										 $('#praiser'+videoid).html(parseInt($('#praiser'+videoid).text())+1);
+								}else{
+									alert(json.msg);
+								}
+							}
+						});
+					 }
+			 });
+
+			 $(".favorites").bind({
+					click:function(event){
+						var videoid = event.target.id;
+						$.ajax({
+							url: "/video_favorite?videoid="+videoid,
+							type: "POST",
+							success: function (json) {
+								 if(json.result == 1){
+										alert("视频收藏成功！");
+							 }else{
+								 alert(json.msg);
+							 }
+						 }
+					 });
+					}
+			});
+
+		});
+		</script>
+
+{{/extend}}

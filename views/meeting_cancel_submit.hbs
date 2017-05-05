@@ -1,0 +1,46 @@
+			<!-- main-container start -->
+			<!-- ================ -->
+			<section class="main-container">
+
+				<div class="container">
+					<div class="row">
+
+						<!-- main start -->
+						<!-- ================ -->
+						<div class="main col-md-6 col-md-offset-3">
+							<h1 class="title">{{message_title}}</h1>
+							<br>
+							<p>{{message}}</p>
+							<form role="search" method="post" action="/meeting_cancel_submit">
+								<input type="hidden" name="meetingid" value="{{meetingid}}">
+								<input type="submit" value="取消报名" class="btn btn-default">
+							</form>
+						</div>
+						<!-- main end -->
+
+					</div>
+				</div>
+			</section>
+			<!-- main-container end -->
+
+{{#extend "bottom_scripts"}}
+
+		<!-- JavaScript files placed at the end of the document so the pages load faster
+		================================================== -->
+		<!-- Jquery and Bootstap core js files -->
+		<script type="text/javascript" src="/plugins/jquery.js"></script>
+		<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+
+		<!-- Modernizr javascript -->
+		<!-- <script type="text/javascript" src="/plugins/modernizr.js"></script> -->
+
+		<!-- Appear javascript -->
+		<!-- <script type="text/javascript" src="/plugins/jquery.appear.js"></script> -->
+
+		<!-- Sharrre javascript -->
+		<!-- <script type="text/javascript" src="/plugins/jquery.sharrre.js"></script> -->
+
+		<!-- Initialization of Plugins -->
+		<!-- <script type="text/javascript" src="/js/template.js"></script> -->
+
+{{/extend}}

@@ -1,0 +1,183 @@
+{{#extend "stylesheets"}}
+		<!-- Plugins -->
+		<link href="/plugins/magnific-popup/magnific-popup.css" rel="stylesheet">
+		<link href="/css/animations.css" rel="stylesheet">
+{{/extend}}
+
+			<!-- page-intro start-->
+			<!-- ================ -->
+			<!-- <div class="page-intro">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<ol class="breadcrumb">
+								<li><i class="fa fa-home pr-10"></i><a href="/meeting_review">精彩回顾</a></li>
+								<li class="active">会议详情</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div> -->
+			<!-- page-intro end -->
+
+			<!-- main-container start -->
+			<!-- ================ -->
+			<section class="main-container">
+
+				<div class="container">
+					<div class="row">
+
+						<!-- main start -->
+						<!-- ================ -->
+						<div class="main col-md-8 col-md-offset-2">
+
+							<!-- page-title start -->
+							<!-- ================ -->
+							<h1 class="page-title">{{meeting.title}}（已结束）</h1>
+							<!-- page-title end -->
+
+							<!-- blogpost start -->
+							<article class="clearfix blogpost full">
+								<div class="blogpost-body">
+									<div class="side">
+										<div class="post-info">
+											<span class="day">{{day}}</span>
+											<span class="month">{{month}} {{year}}</span>
+										</div>
+									</div>
+									<div class="blogpost-content">
+										<div class="overlay-container">
+											<img src="/showImage?imgfileid={{meeting.logofileid}}" alt="">
+											<div class="overlay">
+												<div class="overlay-links">
+													<a href="/meeting_summary?meetingid={{meeting.meetingid}}"><i class="fa fa-link"></i></a>
+													<a href="/showImage?imgfileid={{meeting.logofileid}}" class="popup-img"><i class="fa fa-search-plus"></i></a>
+												</div>
+												<span>{{meeting.title}}</span>
+											</div>
+										</div>
+										<div class="image-box-body clearfix">
+											<span><strong>会议开始时间：</strong>{{meeting.startdate}}</span>&nbsp;&nbsp;
+											<span class="pull-right" ><strong>会议结束时间：</strong>{{meeting.enddate}}</span><br>
+											<span><strong>会议地点：</strong>{{meeting.address}}</span><br>
+											<span><strong>主办单位：</strong>{{meeting.sponsor}}</span><br>
+											<span><strong>协办单位：</strong>{{meeting.coorgnizer}}</span><br>
+											<span><strong>参会积分：</strong>{{meeting.meetingscore}}</span><br>
+											<span><strong>是否收费：</strong>{{isfeedesc}}</span><br>
+											<i class="fa fa-comment-o pr-5"></i>评论{{meeting.comments}} |
+											<a><i class="fa fa-thumbs-o-up pr-5 praiser" id="{{meeting.meetingid}}">点赞</i></a><span id="praiser{{meeting.meetingid}}">{{this.praises}}</span></a> |
+											<a><i class="fa fa-star-o pr-5 favorites" id="{{meeting.meetingid}}">收藏</i></a>
+											<a class="pull-right" href="/meeting_summary?meetingid={{meeting.meetingid}}"><span>会议总结</span></a>
+										</div>
+									</div>
+										<p>&nbsp;&nbsp;{{meeting.content}}</p>
+
+										{{#if meeting.isfee}}
+											<p><strong>收费说明：</strong>{{meeting.feememo}}</p>
+										{{/if}}
+										{{#if hava_meeting_plan}}
+										<table class="table table-striped">
+											<thead>
+												<tr>
+													<th>#</th>
+													<th>主题</th>
+													<th>演讲</th>
+													<th>会场</th>
+													<th>时间</th>
+												</tr>
+											</thead>
+											<tbody>
+												{{#each meeting_plans}}
+												<tr>
+													<td>{{this.seqnum}}</td>
+													<td>{{this.subject}}</td>
+													<td>{{this.speaker}}</td>
+													<td>{{this.place}}</td>
+													<td>{{this.meetingdate}} {{this.meetingtime}}</td>
+												</tr>
+												<tr>
+													<td colspan="5"><strong>简介：</strong>{{this.summary}}
+													</td>
+												</tr>
+												{{/each}}
+											</tbody>
+										</table>
+										{{/if}}
+								</div>
+								<footer class="clearfix">
+									<ul class="links pull-left">
+										<li><i class="fa fa-user pr-5"></i>会议联系人：{{meeting.linkman}} |</li>
+										<li><i class="fa fa-phone pr-5"></i> 电话：{{meeting.tel}} </li>
+										<li><i class="fa fa-mobile pr-5"></i> 手机：{{meeting.mobile}} |</li>
+										<li><i class="fa fa-envelope-o pr-5"></i> 邮箱：{{meeting.email}} </li>
+									</ul>
+								</footer>
+							</article>
+							<!-- blogpost end -->
+
+						</div>
+						<!-- main end -->
+					</div>
+				</div>
+			</section>
+			<!-- main-container end -->
+
+{{#extend "bottom_scripts"}}
+		<!-- JavaScript files placed at the end of the document so the pages load faster
+		================================================== -->
+		<!-- Jquery and Bootstap core js files -->
+		<script type="text/javascript" src="/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+
+		<!-- Modernizr javascript -->
+		<script type="text/javascript" src="/plugins/modernizr.js"></script>
+
+		<!-- Magnific Popup javascript -->
+		<script type="text/javascript" src="/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+		<!-- Appear javascript -->
+		<script type="text/javascript" src="/plugins/jquery.appear.js"></script>
+
+		<!-- Initialization of Plugins -->
+		<script type="text/javascript" src="/js/template.js"></script>
+
+		<script>
+			$(document).ready(function(){
+				$(".praiser").bind({
+					 click:function(event){
+						 var meetingid = event.target.id;
+						 $.ajax({
+							 url: "/meeting_praiser?meetingid="+meetingid,
+							 type: "POST",
+							 success: function (json) {
+									if(json.result == 1){
+										 $('#praiser'+meetingid).html(parseInt($('#praiser'+meetingid).text())+1);
+								}else{
+									alert(json.msg);
+								}
+							}
+						});
+					 }
+			 });
+
+			 $(".favorites").bind({
+					click:function(event){
+						var meetingid = event.target.id;
+						$.ajax({
+							url: "/meeting_favorite?meetingid="+meetingid,
+							type: "POST",
+							success: function (json) {
+								 if(json.result == 1){
+										alert("会议收藏成功！");
+							 }else{
+								 alert(json.msg);
+							 }
+						 }
+					 });
+					}
+			});
+
+			}); // End document ready
+		</script>
+
+{{/extend}}

@@ -1,0 +1,135 @@
+{{#extend "stylesheets"}}
+		<!-- Plugins -->
+		<link href="/plugins/magnific-popup/magnific-popup.css" rel="stylesheet">
+		<link href="/css/animations.css" rel="stylesheet">
+{{/extend}}
+
+			<!-- main-container start -->
+			<!-- ================ -->
+			<section class="main-container">
+
+				<div class="container">
+					<div class="row">
+
+						<!-- main start -->
+						<!-- ================ -->
+						<div class="main col-md-12">
+
+							<!-- page-title start -->
+							<!-- ================ -->
+							<h1 class="page-title">我的会议</h1>
+							<div class="separator-2"></div>
+							<!-- page-title end -->
+							<p></p>
+
+							{{#if hava_meetings}}
+							<!-- grid start -->
+							{{#each meetings}}
+							<div class="row grid-space-20">
+								<!-- grid item start -->
+								{{#each this.line}}
+								<div class="col-md-4 col-sm-6">
+									<!-- blogpost start -->
+									<article class="clearfix blogpost">
+										<div class="overlay-container">
+											<img src="/showImage?imgfileid={{this.logofileid}}" alt="">
+											<div class="overlay">
+												<div class="overlay-links">
+													{{#if this.state}}
+													<a href="/meeting_detail?meetingid={{this.meetingid}}"><i class="fa fa-link"></i></a>
+													{{else}}
+														<a href="/meeting_detail_finish?meetingid={{this.meetingid}}"><i class="fa fa-link"></i></a>
+													{{/if}}
+													<a href="/showImage?imgfileid={{this.logofileid}}" class="popup-img"><i class="fa fa-search-plus"></i></a>
+												</div>
+												<span>{{this.title}}</span>
+											</div>
+										</div>
+										<div class="blogpost-body clearfix">
+											<h5 class="title"><a href="meeting_detail.html">{{this.title}}</a></h5>
+											<span><strong>主办单位：</strong>{{this.sponsor}}</span><br>
+											<span><strong>会议开始时间：</strong>{{this.startdate}}</span><br>
+											<span><strong>会议地点：</strong>{{this.address}}</span><br>
+											{{#if this.state}}
+											<a href="/meeting_detail_finish?meetingid={{this.meetingid}}"><span>会议详情</span></a>
+											<a class="pull-right" href="/meeting_summary?meetingid={{this.meetingid}}"><span>会议总结</span></a>
+											{{else}}
+											<a href="/meeting_detail?meetingid={{this.meetingid}}"><span>会议详情</span></a>
+											{{#if this.enrollstate}}
+											<a class="pull-right" href="/meeting_cancel?meetingid={{this.meetingid}}"><span>取消报名</span></a>
+											{{/if}}
+											{{/if}}
+										</div>
+									</article>
+									<!-- blogpost end -->
+								</div>
+								{{/each}}
+								<!-- grid item end -->
+							</div>
+							{{/each}}
+						</div>
+							<!-- grid end -->
+							<div class="clearfix"></div>
+
+							<!-- pagination start -->
+							<ul class="pagination">
+								{{#if prepage}}
+								<li><a href="/my_meeting?pagenum={{prepagenum}}">上一页</a></li>
+								<li><a href="/my_meeting">1</a></li>
+								{{else}}
+								<li><a>上一页</a></li>
+								{{/if}}
+								{{#if hava_precolon}}
+								<li><a>...</a></li>
+								{{/if}}
+								{{#each prepages}}
+								<li><a href="/my_meeting?pagenum={{this}}">{{this}}</a></li>
+								{{/each}}
+								<li class="active"><a>{{pagenum}}<span class="sr-only">(current)</span></a></li>
+								{{#each nextpages}}
+								<li><a href="/my_meeting?pagenum={{this}}">{{this}}</a></li>
+								{{/each}}
+								{{#if hava_postcolon}}
+								<li><a>...</a></li>
+								{{/if}}
+								{{#if nextpage}}
+								<li><a href="/my_meeting?pagenum={{lastpagenum}}">{{lastpagenum}}</a></li>
+								<li><a href="/my_meeting?pagenum={{nextpagenum}}">下一页</a></li>
+								{{else}}
+								<li><a>下一页</a></li>
+								{{/if}}
+							</ul>
+							<!-- pagination end -->
+
+							{{else}}
+							<h2>没有我的会议！</h2>
+							{{/if}}
+
+						</div>
+						<!-- main end -->
+
+					</div>
+				</div>
+			</section>
+			<!-- main-container end -->
+
+{{#extend "bottom_scripts"}}
+		<!-- JavaScript files placed at the end of the document so the pages load faster
+		================================================== -->
+		<!-- Jquery and Bootstap core js files -->
+		<script type="text/javascript" src="/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+
+		<!-- Modernizr javascript -->
+		<script type="text/javascript" src="/plugins/modernizr.js"></script>
+
+		<!-- Magnific Popup javascript -->
+		<script type="text/javascript" src="/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+		<!-- Appear javascript -->
+		<script type="text/javascript" src="/plugins/jquery.appear.js"></script>
+
+		<!-- Initialization of Plugins -->
+		<script type="text/javascript" src="/js/template.js"></script>
+
+{{/extend}}

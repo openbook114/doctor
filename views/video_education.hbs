@@ -1,0 +1,118 @@
+{{#extend "stylesheets"}}
+		<!-- Plugins -->
+		<link href="/plugins/magnific-popup/magnific-popup.css" rel="stylesheet">
+		<link href="/css/animations.css" rel="stylesheet">
+{{/extend}}
+			<!-- main-container start -->
+			<!-- ================ -->
+			<section class="main-container">
+
+				<div class="container">
+					<div class="row">
+
+						<!-- main start -->
+						<!-- ================ -->
+						<div class="main col-md-12">
+
+							<!-- page-title start -->
+							<!-- ================ -->
+							<h1 class="page-title">视频教学</h1>
+							<div class="separator-2"></div>
+							<!-- page-title end -->
+
+							<p></p>
+							{{#if have_albums}}
+							<!-- grid start -->
+							{{#each albums}}
+							<div class="row grid-space-20">
+								<!-- grid item start -->
+								{{#each this.line}}
+								<div class="col-sm-3">
+									<!-- blogpost start -->
+									<article class="clearfix blogpost">
+										<div class="overlay-container">
+											<img src="/showImage?imgfileid={{this.coverfileid}}" alt="">
+											<div class="overlay">
+												<div class="overlay-links">
+													<a href="/showImage?imgfileid={{this.coverfileid}}" class="popup-img"><i class="fa fa-search-plus"></i></a>
+													<a href="/video_album?albumid={{this.albumid}}"><i class="fa fa-link"></i></a>
+												</div>
+												<span>{{this.albumname}}</span>
+											</div>
+										</div>
+										<div class="blogpost-body">
+											<h4 class="title text-center"><a href="/video_album?albumid={{this.albumid}}">{{this.albumname}}</a></h4>
+											<div class="text-center"><a href="/video_album?albumid={{this.albumid}}">教学培训详情</a></div>
+										</div>
+									</article>
+									<!-- blogpost end -->
+								</div>
+								{{/each}}
+								<!-- grid item end -->
+							</div>
+							{{/each}}
+						</div>
+						<!-- grid end -->
+							<div class="clearfix"></div>
+
+							<!-- pagination start -->
+							<ul class="pagination">
+								{{#if prepage}}
+								<li><a href="/video_expert?pagenum={{prepagenum}}">上一页</a></li>
+								<li><a href="/video_expert">1</a></li>
+								{{else}}
+								<li><a>上一页</a></li>
+								{{/if}}
+								{{#if hava_precolon}}
+								<li><a>...</a></li>
+								{{/if}}
+								{{#each prepages}}
+								<li><a href="/video_expert?pagenum={{this}}">{{this}}</a></li>
+								{{/each}}
+								<li class="active"><a>{{pagenum}}<span class="sr-only">(current)</span></a></li>
+								{{#each nextpages}}
+								<li><a href="/video_expert?pagenum={{this}}">{{this}}</a></li>
+								{{/each}}
+								{{#if hava_postcolon}}
+								<li><a>...</a></li>
+								{{/if}}
+								{{#if nextpage}}
+								<li><a href="/video_expert?pagenum={{lastpagenum}}">{{lastpagenum}}</a></li>
+								<li><a href="/video_expert?pagenum={{nextpagenum}}">下一页</a></li>
+								{{else}}
+								<li><a>下一页</a></li>
+								{{/if}}
+							</ul>
+
+							{{else}}
+							<h2>没有教学视频！</h2>
+							{{/if}}
+
+						</div>
+						<!-- main end -->
+
+					</div>
+				</div>
+			</section>
+			<!-- main-container end -->
+
+{{#extend "bottom_scripts"}}
+		<!-- JavaScript files placed at the end of the document so the pages load faster
+		================================================== -->
+		<!-- Jquery and Bootstap core js files -->
+		<script type="text/javascript" src="/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+
+		<!-- Modernizr javascript -->
+		<script type="text/javascript" src="/plugins/modernizr.js"></script>
+
+		<!-- Magnific Popup javascript -->
+		<script type="text/javascript" src="/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+		<!-- Appear javascript -->
+		<script type="text/javascript" src="/plugins/jquery.appear.js"></script>
+
+		<!-- Initialization of Plugins -->
+		<script type="text/javascript" src="/js/template.js"></script>
+
+{{/extend}}

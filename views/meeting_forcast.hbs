@@ -1,0 +1,303 @@
+{{#extend "stylesheets"}}
+<!-- Plugins -->
+<link href="/plugins/rs-plugin/css/settings.css" media="screen" rel="stylesheet">
+<link href="/plugins/rs-plugin/css/extralayers.css" media="screen" rel="stylesheet">
+<link href="/plugins/magnific-popup/magnific-popup.css" rel="stylesheet">
+<link href="/css/animations.css" rel="stylesheet">
+<link href="/plugins/jquery.countdown/jquery.countdown.css" rel="stylesheet">
+
+{{/extend}}
+
+			{{#if have_meetings}}
+			<!-- banner start -->
+			<!-- ================ -->
+			<div class="banner">
+
+				<!-- slideshow start -->
+				<!-- ================ -->
+				<div class="slideshow white-bg">
+
+					<!-- slider revolution start -->
+					<!-- ================ -->
+					<div class="slider-banner-container">
+						<div class="slider-banner-2 bullets-with-bg">
+							<ul>
+
+								{{#each carousel}}
+								<!-- slide 1 start -->
+								<li data-transition="fade" data-slotamount="7" data-masterspeed="1000" data-saveperformance="on" data-title="Slide {{@index}}" class="dark-translucent-bg">
+
+								<!-- main image -->
+								<img src="/images/bg{{@index}}.jpg" alt="slidebg1" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
+								<!-- LAYER NR. 1 -->
+								<div class="tp-caption very_large_text text-center sfl tp-resizeme"
+									data-x="center"
+									data-y="70"
+									data-speed="600"
+									data-start="0"
+									data-end="10000"
+									data-endspeed="600">{{{this.title}}}
+								</div>
+
+								<!-- LAYER NR. 2 -->
+								<div class="tp-caption sfr small_thin_white text-center tp-resizeme"
+									data-x="center"
+									data-y="230"
+									data-speed="600"
+									data-start="0"
+									data-end="10000"
+									data-endspeed="600">{{{this.content}}}
+								</div>
+
+								<!-- LAYER NR. 3 -->
+								<div class="tp-caption tp-resizeme sfl"
+									data-x="center"
+									data-y="400"
+									data-speed="600"
+									data-start="0"
+									data-end="10000"
+									data-endspeed="600"><a href="/meeting_detail?meetingid={{this.meetingid}}" class="btn btn-dark btn-lg">会议详情<i class="fa fa-angle-double-right pl-10"></i></a>
+								</div>
+
+								</li>
+								{{/each}}
+
+							</ul>
+						</div>
+					</div>
+					<!-- slider revolution end -->
+
+				</div>
+				<!-- slideshow end -->
+
+			</div>
+			<!-- banner end -->
+
+
+			<!-- page-top start -->
+			<!-- ================ -->
+			<div class="page-top parallax default-translucent-bg parallax-bg-3">
+				<div class="container">
+					<div class="call-to-action">
+						<div class="row">
+							<div class="col-md-8">
+								<h1 class="title text-center">{{month}}月{{day}}日 {{ftitle}}</h1>
+								<p class="text-center">会议地点：{{faddress}} </p>
+							</div>
+							<div class="col-md-4">
+								<h3>距离会议开幕还有:</h3>
+
+								<!-- countdown start -->
+								<div class="countdown"></div>
+								<!-- countdown end -->
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- page-top end -->
+
+			{{/if}}
+
+			<!-- main-container start -->
+			<!-- ================ -->
+			<section class="main-container">
+
+				<div class="container">
+					<div class="row">
+
+						<!-- main start -->
+						<!-- ================ -->
+						<div class="main col-md-12">
+
+							<!-- page-title start -->
+							<!-- ================ -->
+							<h1 class="page-title">会议预告</h1>
+							<div class="separator-2"></div>
+							<!-- page-title end -->
+
+							<p></p>
+							<p></p>
+							{{#if have_meetings}}
+							<!-- grid start -->
+								{{#each meetings}}
+								<div class="row grid-space-20">
+									<!-- grid item start -->
+									{{#each this.line}}
+									<div class="col-sm-6">
+										<!-- blogpost start -->
+									<article class="clearfix blogpost">
+										<div class="overlay-container">
+											<img src="/showImage?imgfileid={{this.logofileid}}" alt="">
+											<div class="overlay">
+												<div class="overlay-links">
+													<a href="/meeting_detail?meetingid={{this.meetingid}}"><i class="fa fa-link"></i></a>
+													<a href="/showImage?imgfileid={{this.logofileid}}" class="popup-img"><i class="fa fa-search-plus"></i></a>
+												</div>
+												<span>{{this.title}}</span>
+											</div>
+										</div>
+										<div class="blogpost-body clearfix">
+											<h5 class="title"><a href="/meeting_detail?meetingid={{this.meetingid}}">{{this.title}}</a></h5>
+											<span><strong>会议开始时间：</strong>{{this.startdate}}</span>&nbsp;&nbsp;
+											<span class="pull-right" ><strong>参会积分：</strong>{{this.meetingscore}}</span><br>
+											<span><strong>会议地点：</strong>{{this.address}}</span>
+											<a class="pull-right" href="/meeting_detail?meetingid={{this.meetingid}}"><span>会议详情</span></a><br>
+										</div>
+										<footer class="clearfix">
+											<div class="testimonial-info-1">
+												<i class="fa fa-comment-o pr-5"></i>评论数{{this.comments}} |
+												<a><i class="fa fa-thumbs-o-up pr-5 praiser" id="{{this.meetingid}}">点赞</i></a><span id="praiser{{this.meetingid}}">{{this.praises}}</span> |
+												<a><i class="fa fa-star-o pr-5 favorites" id="{{this.meetingid}}">收藏</i></a> |
+												<i class="fa fa-tags pr-5"></i>报名人数 {{this.applicants}}
+												{{#if this.state}}
+												{{#if this.regstate}}
+												<a class="pull-right" href="/meeting_cancel?meetingid={{this.meetingid}}"><span>取消报名</span></a>
+												{{else}}
+												<a class="pull-right" href="/meeting_enroll?meetingid={{this.meetingid}}"><span>立即报名</span></a>
+												{{/if}}
+												{{/if}}
+											</div>
+										</footer>
+									</article>
+									<!-- blogpost end -->
+								</div>
+								{{/each}}
+								<!-- grid item end -->
+							</div>
+							{{/each}}
+						</div>
+							<!-- grid end -->
+							<div class="clearfix"></div>
+
+							<!-- pagination start -->
+							<ul class="pagination">
+								{{#if prepage}}
+								<li><a href="/meeting_forcast?pagenum={{prepagenum}}">上一页</a></li>
+								<li><a href="/meeting_forcast">1</a></li>
+								{{else}}
+								<li><a>上一页</a></li>
+								{{/if}}
+								{{#if hava_precolon}}
+								<li><a>...</a></li>
+								{{/if}}
+								{{#each prepages}}
+								<li><a href="/meeting_forcast?pagenum={{this}}">{{this}}</a></li>
+								{{/each}}
+								<li class="active"><a>{{pagenum}}<span class="sr-only">(current)</span></a></li>
+								{{#each nextpages}}
+								<li><a href="/meeting_forcast?pagenum={{this}}">{{this}}</a></li>
+								{{/each}}
+								{{#if hava_postcolon}}
+								<li><a>...</a></li>
+								{{/if}}
+								{{#if nextpage}}
+								<li><a href="/meeting_forcast?pagenum={{lastpagenum}}">{{lastpagenum}}</a></li>
+								<li><a href="/meeting_forcast?pagenum={{nextpagenum}}">下一页</a></li>
+								{{else}}
+								<li><a>下一页</a></li>
+								{{/if}}
+							</ul>
+						</div>
+						<!-- main end -->
+
+						{{else}}
+
+						<h2>没有会议预告信息！</h2>
+
+						{{/if}}
+
+					</div>
+				</div>
+			</section>
+			<!-- main-container end -->
+
+{{#extend "bottom_scripts"}}
+
+<!-- JavaScript files placed at the end of the document so the pages load faster
+		================================================== -->
+		<!-- Jquery and Bootstap core js files -->
+		<script type="text/javascript" src="/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+
+		<!-- Modernizr javascript -->
+		<script type="text/javascript" src="/plugins/modernizr.js"></script>
+
+		<!-- jQuery REVOLUTION Slider  -->
+		<script type="text/javascript" src="/plugins/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+		<script type="text/javascript" src="/plugins/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+
+		<!-- Magnific Popup javascript -->
+		<script type="text/javascript" src="/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+		<!-- Appear javascript -->
+		<script type="text/javascript" src="/plugins/jquery.appear.js"></script>
+
+		<!-- Parallax javascript -->
+		<script src="/plugins/jquery.parallax-1.1.3.js"></script>
+
+		<!-- Count Down javascript -->
+		<script type="text/javascript" src="/plugins/jquery.countdown/jquery.plugin.min.js"></script>
+		<script type="text/javascript" src="/plugins/jquery.countdown/jquery.countdown.min.js"></script>
+		<script type="text/javascript" src="/plugins/jquery.countdown/jquery.countdown-zh-CN.js"></script>
+		<!-- <script type="text/javascript" src="js/coming.soon.config.js"></script> -->
+
+		<!-- Initialization of Plugins -->
+		<script type="text/javascript" src="/js/template.js"></script>
+
+		<script>
+			$(document).ready(function(){
+				// Set the time at which the countdown expires.
+				// var untilDate new Date(Year, Month - 1, Day)
+				//-----------------------------------------------
+				// var untilDate = new Date(2017, 6 - 1, 10);
+				var untilDate = new Date({{year}}, {{pmonth}}, {{day}}, {{hr}}, {{min}}, {{sec}});
+
+				$(".countdown").countdown({
+					until: untilDate,
+					format: 'dHMS',
+					padZeroes: true,
+					timeSeparator:':',
+					compact:true
+				});
+
+				$(".praiser").bind({
+					 click:function(event){
+						 var meetingid = event.target.id;
+						 $.ajax({
+							 url: "/meeting_praiser?meetingid="+meetingid,
+							 type: "POST",
+							 success: function (json) {
+									if(json.result == 1){
+										 $('#praiser'+meetingid).html(parseInt($('#praiser'+meetingid).text())+1);
+								}else{
+									alert(json.msg);
+								}
+							}
+						});
+					 }
+			 });
+
+			 $(".favorites").bind({
+					click:function(event){
+						var meetingid = event.target.id;
+						$.ajax({
+							url: "/meeting_favorite?meetingid="+meetingid,
+							type: "POST",
+							success: function (json) {
+								 if(json.result == 1){
+										alert("会议收藏成功！");
+							 }else{
+								 alert(json.msg);
+							 }
+						 }
+					 });
+					}
+			});
+
+		}); // End document ready
+		</script>
+
+
+{{/extend}}

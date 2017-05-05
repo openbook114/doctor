@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8">
+  <title>{{title}}</title>
+  <meta name="description" content="iDea a Bootstrap-based, Responsive HTML5">
+  <meta name="author" content="htmlcoder.me">
+
+  <!-- Mobile Meta -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="/images/favicon.ico">
+
+  <!-- Web Fonts -->
+  <link rel='stylesheet' href='/css/style.css'>
+
+	<!-- Bootstrap core CSS -->
+	<link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+	<!-- Font Awesome CSS -->
+	<link href="/fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+  <!-- Fontello CSS -->
+  <link href="/fonts/fontello/css/fontello.css" rel="stylesheet">
+
+
+  {{{block "stylesheets"}}}
+
+  <!-- iDea core CSS file -->
+  <link href="/css/style.css" rel="stylesheet">
+
+  <!-- Color Scheme (In order to change the color scheme, replace the red.css with the color scheme that you prefer)-->
+  <link href="/css/skins/orange.css" rel="stylesheet">
+
+  <!-- Custom css -->
+  <link href="/css/custom.css" rel="stylesheet">
+
+  <!--[if lt IE 9]-->
+  <script type="text/javascript"  src="/js/html5shiv.js"></script>
+  <script type="text/javascript" src="/js/selectivizr.js"></script>
+  <!--[endif] -->
+
+  {{{block "head_scripts"}}}
+
+</head>
+
+<!-- body classes:
+    "boxed": boxed layout mode e.g. <body class="boxed">
+    "pattern-1 ... pattern-9": background patterns for boxed layout mode e.g. <body class="boxed pattern-1">
+-->
+<body class="front">
+  <!-- scrollToTop -->
+  <!-- ================ -->
+  <div class="scrollToTop"><i class="icon-up-open-big"></i></div>
+
+  <!-- page wrapper start -->
+  <!-- ================ -->
+  <div class="page-wrapper">
+
+    <!-- header-top start -->
+    <!-- ================ -->
+    <div class="header-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-10 col-sm-12">
+
+            <!-- header-top-second start -->
+            <!-- ================ -->
+            <div id="header-top-second"  class="clearfix">
+
+              <!-- header top dropdowns start -->
+              <!-- ================ -->
+              <div class="header-top-dropdown">
+                {{#if logined}}
+                <div class="btn-group dropdown">
+                  <button type="button" class="btn"><i class="fa fa-user"></i>欢迎，{{nickname}}</a></button>
+                </div>
+                <div class="btn-group dropdown">
+                  <button type="button" class="btn"><i class="fa fa-newspaper-o"></i><a href="/my_account">账户管理</a></button>
+                </div>
+                <div class="btn-group dropdown">
+                  <button type="button" class="btn"><i class="fa fa-cubes"></i><a href="/my_meeting">我的会议</a></button>
+                </div>
+                <div class="btn-group dropdown">
+                  <button type="button" class="btn"><i class="fa fa-question-circle"></i><a href="/my_question">我的提问</a></button>
+                </div>
+                <div class="btn-group dropdown">
+                  <button type="button" class="btn"><i class="fa fa-question-circle"></i><a href="/my_answer">我的回答</a></button>
+                </div>
+                <div class="btn-group dropdown">
+                  <button type="button" class="btn"><i class="fa fa-star-o"></i><a href="/my_favorite">我的收藏</a></button>
+                </div>
+                <div class="btn-group dropdown">
+                  <button type="button" class="btn"><i class="fa fa-user"></i><a href="/logout">退出</a></button>
+                </div>
+                {{else}}
+                <div class="btn-group dropdown">
+                  <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>登录</button>
+                  <ul class="dropdown-menu dropdown-menu-right dropdown-animation">
+                    <li>
+                      <form class="login-form" method="post" action="/login">
+                        <div class="form-group has-feedback">
+                          <label class="control-label">账号</label>
+                          <input type="text" name="username" class="form-control" placeholder="">
+                          <i class="fa fa-user form-control-feedback"></i>
+                        </div>
+                        <div class="form-group has-feedback">
+                          <label class="control-label">密码</label>
+                          <input type="password" name="password" class="form-control" placeholder="">
+                          <i class="fa fa-lock form-control-feedback"></i>
+                        </div>
+                        <button type="submit" class="btn btn-group btn-dark btn-sm">登录</button>
+                        <ul>
+                          <li><a href="#">下载APP注册</a></li>
+                        </ul>
+                        <div class="divider"></div>
+                      </form>
+                    </li>
+                  </ul>
+                </div>
+                {{/if}}
+              </div>
+              <!--  header top dropdowns end -->
+            </div>
+            <!-- header-top-second end -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- header-top end -->
+
+    <!-- header start (remove fixed class from header in order to disable fixed navigation mode) -->
+    <!-- ================ -->
+    <header class="header fixed clearfix">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+
+            <!-- header-left start -->
+            <!-- ================ -->
+            <div class="header-left clearfix">
+
+              <!-- logo -->
+              <div class="logo">
+                <a href="/"><img id="logo" src="/images/logo.png" alt="良医智库"></a>
+              </div>
+
+              <!-- name-and-slogan -->
+              <div class="site-slogan">
+                良医智库 &amp; 电生理医学知识分享平台
+              </div>
+
+            </div>
+            <!-- header-left end -->
+
+          </div>
+          <div class="col-md-9">
+
+            <!-- header-right start -->
+            <!-- ================ -->
+            <div class="header-right clearfix">
+
+              <!-- main-navigation start -->
+              <!-- ================ -->
+              <div class="main-navigation animated">
+
+                <!-- navbar start -->
+                <!-- ================ -->
+                <nav class="navbar navbar-default" role="navigation">
+                  <div class="container-fluid">
+
+                    <!-- Toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+                        <span class="sr-only">切换</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+                      <ul class="nav navbar-nav navbar-right">
+                        {{#if active_index}}
+                        <li class="active">
+                        {{else}}
+                        <li>
+                        {{/if}}
+                          <a href="/">首页</a>
+                        </li>
+                        {{#if active_meeting}}
+                        <li class="dropdown active">
+                        {{else}}
+                        <li class="dropdown">
+                        {{/if}}
+                          <a href="/meeting_forcast" class="dropdown-toggle" data-toggle="dropdown">会议</a>
+                          <ul class="dropdown-menu">
+                            <li><a href="/meeting_forcast">会议预告</a></li>
+                            <li><a href="/meeting_review">精彩回顾</a></li>
+                          </ul>
+                        </li>
+
+                        {{#if active_video}}
+                        <li class="dropdown active">
+                        {{else}}
+                        <li class="dropdown">
+                        {{/if}}
+                          <a href="/video_expert" class="dropdown-toggle" data-toggle="dropdown">视频</a>
+                          <ul class="dropdown-menu">
+                            <li><a href="/video_expert">专家讲堂</a></li>
+                            <li><a href="/video_education">视频教学</a></li>
+                            <li><a href="/video_review">精彩回放</a></li>
+                          </ul>
+                        </li>
+                        {{#if active_discuss}}
+                        <li class="active">
+                        {{else}}
+                        <li>
+                        {{/if}}
+                          <a href="/discuss_question">医疗圈</a>
+                        </li>
+                      </ul>
+                    </div>
+
+                  </div>
+                </nav>
+                <!-- navbar end -->
+
+              </div>
+              <!-- main-navigation end -->
+
+            </div>
+            <!-- header-right end -->
+
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- header end -->
+
+  {{{body}}}
+
+      <!-- footer start (Add "light" class to #footer in order to enable light footer) -->
+      <!-- ================ -->
+      <footer id="footer">
+      <!-- .footer start -->
+      <!-- ================ -->
+      <div class="subfooter">
+        <div class="container">
+          <div class="row">
+            <div align="center">
+              欢迎联系我们:
+                <i class="fa fa-phone pr-10"></i> +00 1234567890
+                <i class="fa fa-fax pr-10"></i> +00 1234567891
+                <i class="fa fa-envelope-o pr-10"></i> info@idea.com
+              <br>Copyright &copy; 2017.良医智库 All rights reserved.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </footer>
+    <!-- footer end -->
+
+</div>
+<!-- page-wrapper end -->
+
+  {{{block "bottom_scripts"}}}
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+.round_border {
+  /*border-color: red;
+  border-width: 2px;
+  border-style: solid;*/
+  border-radius: 50%;
+}
+
+.small-image {
+  width: 18px;
+  height:18px;
+}
+
+.large-image {
+  width: 50px;
+  height:50px;
+}
+
+.image_text_in_line {
+  float:left;
+}

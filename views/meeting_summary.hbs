@@ -1,0 +1,91 @@
+{{#extend "stylesheets"}}
+		<!-- Plugins -->
+		<!-- Video Player javascript -->
+		<script type="text/javascript" src="/plugins/sewise/sewise.player.min.js"></script>
+{{/extend}}
+
+			<!-- page-intro start-->
+			<!-- ================ -->
+			<!-- <div class="page-intro">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<ol class="breadcrumb">
+								<li><i class="fa fa-home pr-10"></i><a href="/meeting_review">精彩回顾</a></li>
+								<li class="active">会议总结</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div> -->
+			<!-- page-intro end -->
+
+			{{#if hava_relatevideo}}
+			<!-- banner start -->
+			<div class="banner dark-bg">
+				<div id="player" style="width:640px;height: 352px;margin:0 auto;">
+					<script type="text/javascript">
+						SewisePlayer.setup({
+							server: "vod",
+							type: "m3u8",
+							autostart: "false",
+							poster: "/images/bg1.jpg",
+							videourl:"{{video.videourl}}",
+							title: "{{video.videoname}}",
+							skin:"vodFlowPlayer",
+							logo:'/images/logo.png',
+							lang: "zh_CN",
+							claritybutton: 'disable'
+						}, "player");
+					</script>
+				</div>
+			</div>
+			<!-- banner end -->
+			{{/if}}
+
+			<!-- main-container start -->
+			<!-- ================ -->
+			<section class="main-container">
+
+				<div class="container">
+					<div class="row">
+
+						<!-- main start -->
+						<!-- ================ -->
+						<div class="main col-md-8 col-md-offset-2">
+
+							<!-- page-title start -->
+							<!-- ================ -->
+
+							<!-- page-title end -->
+
+							<!-- blogpost start -->
+							<article class="clearfix blogpost full">
+								<div class="blogpost-body">
+									<div class="blogpost-content">
+										<!-- <h1 class="page-title">{{meeting.title}}</h1> -->
+										{{{meeting}}}
+								</div>
+							<!-- blogpost end -->
+
+						</div>
+						<!-- main end -->
+					</div>
+				</div>
+			</section>
+			<!-- main-container end -->
+
+{{#extend "bottom_scripts"}}
+		<!-- JavaScript files placed at the end of the document so the pages load faster
+		================================================== -->
+		<!-- Jquery and Bootstap core js files -->
+		<script type="text/javascript" src="/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+
+		<!-- Modernizr javascript -->
+		<script type="text/javascript" src="/plugins/modernizr.js"></script>
+
+		<!-- Appear javascript -->
+		<script type="text/javascript" src="/plugins/jquery.appear.js"></script>
+
+{{/extend}}

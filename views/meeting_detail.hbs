@@ -1,0 +1,258 @@
+{{#extend "stylesheets"}}
+		<!-- Plugins -->
+		<link href="/plugins/magnific-popup/magnific-popup.css" rel="stylesheet">
+		<link href="/css/animations.css" rel="stylesheet">
+{{/extend}}
+
+			<!-- main-container start -->
+			<!-- ================ -->
+			<section class="main-container">
+
+				<div class="container">
+					<div class="row">
+
+						<!-- main start -->
+						<!-- ================ -->
+						<div class="main col-md-10 col-md-offset-1">
+
+							<!-- page-title start -->
+							<!-- ================ -->
+							<h1 class="page-title">{{meeting.title}}</h1>
+							<!-- page-title end -->
+
+							<!-- blogpost start -->
+							<article class="clearfix blogpost full">
+								<div class="blogpost-body">
+									<div class="side">
+										<div class="post-info">
+											<span class="day">{{day}}</span>
+											<span class="month">{{month}} {{year}}</span>
+										</div>
+									</div>
+									<div class="blogpost-content">
+										<div class="overlay-container">
+											<img src="/showImage?imgfileid={{meeting.logofileid}}" alt="" style="display:block;width:100%;" >
+											<div class="overlay">
+												<div class="overlay-links">
+													<a href="/meeting_enroll?meetingid={{meeting.meetingid}}"><i class="fa fa-link"></i></a>
+													<a href="/showImage?imgfileid={{meeting.logofileid}}" class="popup-img"><i class="fa fa-search-plus"></i></a>
+												</div>
+												<span>{{meeting.title}}</span>
+											</div>
+										</div>
+										<div class="image-box-body clearfix">
+											<span><strong>会议开始时间：</strong>{{meeting.startdate}}</span>&nbsp;&nbsp;
+											<span class="pull-right" ><strong>会议结束时间：</strong>{{meeting.enddate}}</span><br>
+											<span><strong>会议地点：</strong>{{meeting.address}}</span><br>
+											<span><strong>主办单位：</strong>{{meeting.sponsor}}</span><br>
+											<span><strong>协办单位：</strong>{{meeting.coorgnizer}}</span><br>
+											<span><strong>参会积分：</strong>{{meeting.meetingscore}}</span><br>
+											<span><strong>是否收费：</strong>{{isfeedesc}}</span><br>
+											<i class="fa fa-comment-o pr-5"></i>评论 {{meeting.comments}} |
+											<a><i class="fa fa-thumbs-o-up pr-5 praiser" id="{{meeting.meetingid}}">点赞</i></a><span id="praiser{{meeting.meetingid}}">{{meeting.praises}}</span></a> |
+											<a><i class="fa fa-star-o pr-5 favorites" id="{{meeting.meetingid}}">收藏</i></a> |
+											<i class="fa fa-tags pr-5"></i>{{meeting.applicants}}人已报名
+										</div>
+									</div>
+										<p>&nbsp;&nbsp;{{meeting.content}}</p>
+										{{#if meeting.isfee}}
+											<p><strong>收费说明：</strong>{{meeting.feememo}}</p>
+										{{/if}}
+										{{#if hava_meeting_plan}}
+										<table class="table table-striped">
+											<thead>
+												<tr>
+													<th>#</th>
+													<th>主题</th>
+													<th>演讲</th>
+													<th>会场</th>
+													<th>时间</th>
+												</tr>
+											</thead>
+											<tbody>
+												{{#each meeting_plans}}
+												<tr>
+													<td>{{this.seqnum}}</td>
+													<td>{{this.subject}}</td>
+													<td>{{this.speaker}}</td>
+													<td>{{this.place}}</td>
+													<td>{{this.meetingdate}} {{this.meetingtime}}</td>
+												</tr>
+												<tr>
+													<td colspan="5"><strong>简介：</strong>{{this.summary}}
+													</td>
+												</tr>
+												{{/each}}
+											</tbody>
+										</table>
+										{{/if}}
+								</div>
+								<footer class="clearfix">
+									<ul class="links pull-left">
+										<li><i class="fa fa-user pr-5"></i>会议联系人：{{meeting.linkman}} |</li>
+										<li><i class="fa fa-phone pr-5"></i> 电话：{{meeting.tel}} </li>
+										<li><i class="fa fa-mobile pr-5"></i> 手机：{{meeting.mobile}} |</li>
+										<li><i class="fa fa-envelope-o pr-5"></i> 邮箱：{{meeting.email}} </li>
+									</ul>
+								</footer>
+							</article>
+							<!-- blogpost end -->
+
+							<!-- comments start -->
+							<div class="comments">
+								<h2 class="title">会议评论</h2>
+
+								{{#each comments}}
+								<!-- comment start -->
+								<div class="comment clearfix">
+									<div class="comment-avatar">
+										{{#if commentmaniconbase64}}
+										<img src="{{this.commentmaniconbase64}}" alt="">
+										{{else}}
+										<img src="/images/avatar.jpg" alt="avatar">
+										{{/if}}
+									</div>
+									<div class="comment-content">
+										<div class="comment-meta">{{this.commentman}} | {{this.submittime}}</div>
+										<div class="comment-body clearfix">
+											<p>{{this.comment}}</p>
+										</div>
+									</div>
+								</div>
+									<!-- comment end -->
+								{{/each}}
+
+								{{#if have_comments}}
+								<!-- pagination start -->
+								<ul class="pagination">
+									{{#if prepage}}
+									<li><a href="/meeting_detail?meetingid={{meeting.meetingid}}&pagenum={{prepagenum}}">上一页</a></li>
+									<li><a href="/meeting_detail?meetingid={{meeting.meetingid}}">1</a></li>
+									{{else}}
+									<li><a>上一页</a></li>
+									{{/if}}
+									{{#if hava_precolon}}
+									<li><a>...</a></li>
+									{{/if}}
+									{{#each prepages}}
+									<li><a href="/meeting_detail?meetingid={{../meeting.meetingid}}&pagenum={{this}}">{{this}}</a></li>
+									{{/each}}
+									<li class="active"><a>{{pagenum}}<span class="sr-only">(current)</span></a></li>
+									{{#each nextpages}}
+									<li><a href="/meeting_detail?meetingid={{../meeting.meetingid}}&pagenum={{this}}">{{this}}</a></li>
+									{{/each}}
+									{{#if hava_postcolon}}
+									<li><a>...</a></li>
+									{{/if}}
+									{{#if nextpage}}
+									<li><a href="/meeting_detail?meetingid={{meeting.meetingid}}&pagenum={{lastpagenum}}">{{lastpagenum}}</a></li>
+									<li><a href="/meeting_detail?meetingid={{meeting.meetingid}}&pagenum={{nextpagenum}}">下一页</a></li>
+									{{else}}
+									<li><a>下一页</a></li>
+									{{/if}}
+								</ul>
+								{{else}}
+									还没有评论，快登录发言吧。<p></p>
+								{{/if}}
+
+							</div>
+							<!-- comments end -->
+
+							{{#if logined}}
+							<!-- comments form start -->
+							<div class="comments-form">
+								<h2 class="title">发表评论</h2>
+								<form role="form" id="comment-form" method="POST" action="/meeting_comment_submit">
+									<input type="hidden" name="meetingid" value="{{meeting.meetingid}}">
+									<textarea class="form-control" rows="8" id="comment" name="comment"></textarea>
+									<input type="submit" value="提交" class="btn btn-default">
+								</form>
+							</div>
+							<!-- comments form end -->
+							{{/if}}
+
+						</div>
+						<!-- main end -->
+					</div>
+				</div>
+			</section>
+			<!-- main-container end -->
+
+{{#extend "bottom_scripts"}}
+		<!-- JavaScript files placed at the end of the document so the pages load faster
+		================================================== -->
+		<!-- Jquery and Bootstap core js files -->
+		<script type="text/javascript" src="/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+
+		<!-- Modernizr javascript -->
+		<script type="text/javascript" src="/plugins/modernizr.js"></script>
+
+		<!-- Magnific Popup javascript -->
+		<script type="text/javascript" src="/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+		<!-- form validate -->
+		<script src="/plugins/jquery.validate.min.js"></script>
+		<script src="/plugins/jquery.validate.message_cn.js"></script>
+
+		<!-- Appear javascript -->
+		<script type="text/javascript" src="/plugins/jquery.appear.js"></script>
+
+		<!-- Initialization of Plugins -->
+		<script type="text/javascript" src="/js/template.js"></script>
+
+		<script>
+			$(document).ready(function(){
+				$(".praiser").bind({
+					 click:function(event){
+						 var meetingid = event.target.id;
+						 $.ajax({
+							 url: "/meeting_praiser?meetingid="+meetingid,
+							 type: "POST",
+							 success: function (json) {
+									if(json.result == 1){
+										 $('#praiser'+meetingid).html(parseInt($('#praiser'+meetingid).text())+1);
+								}else{
+									alert(json.msg);
+								}
+							}
+						});
+					 }
+			 });
+
+			 $("#comment-form").validate({
+				 rules: {
+					 comment: {
+						required:true,
+						minlength:8,
+						maxlength:512}
+					},
+					messages:{
+						comment:{required:"需要输入评论内容",minlength:"评论内容长度在8-512个字符之间",maxlength:"评论内容长度在8-512个字符之间"}
+					},
+					submitHandler: function(form) {
+						form.submit();
+				 }
+			 });
+
+			 $(".favorites").bind({
+					click:function(event){
+						var meetingid = event.target.id;
+						$.ajax({
+							url: "/meeting_favorite?meetingid="+meetingid,
+							type: "POST",
+							success: function (json) {
+								 if(json.result == 1){
+										alert("会议收藏成功！");
+							 }else{
+								 alert(json.msg);
+							 }
+						 }
+					 });
+					}
+			});
+
+		}); // End document ready
+		</script>
+
+{{/extend}}

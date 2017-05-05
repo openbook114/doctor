@@ -1,0 +1,231 @@
+{{#extend "stylesheets"}}
+		<!-- Plugins -->
+		<link href="/plugins/magnific-popup/magnific-popup.css" rel="stylesheet">
+		<link href="//css/animations.css" rel="stylesheet">
+		<link href="plugins/owl-carousel/owl.carousel.css" rel="stylesheet">
+		<script type="text/javascript" src="/plugins/jquery.min.js"></script>
+
+		<!-- Video Player javascript -->
+		<script type="text/javascript" src="/plugins/sewise/sewise.player.min.js"></script>
+{{/extend}}
+			<!-- main-container start -->
+			<!-- ================ -->
+			<section class="main-container">
+
+				<div class="container">
+					<div class="row">
+
+						<div class="col-md-12">
+							<!-- page-title start -->
+							<!-- ================ -->
+							<h2 class="page-title margin-top-clear">{{video.videoname}}</h2>
+							<br>
+							<!-- page-title end -->
+							<div class="dark-bg">
+								<div id="player" style="width:480px;height: 360px;margin:0 auto;">
+									<script type="text/javascript">
+										SewisePlayer.setup({
+											server: "vod",
+											type: "m3u8",
+											autostart: "false",
+											poster: "/showImage?imgfileid={{video.coverfileid}}",
+											videourl:"{{video.videourl}}",
+											title: "{{video.videoname}}",
+											skin:"vodFlowPlayer",
+											lang: "zh_CN",
+											claritybutton: 'disable'
+										}, "player");
+										SewisePlayer.onStart(function(id){
+											$.ajax({
+												url: "/video_addviewcount?videoid={{video.videoid}}",
+												type: "POST",
+												success: function (json) {
+													if(json.result == 1){
+															$('#demands'+{{video.videoid}}).html(parseInt($('#demands'+{{video.videoid}}).text())+1);
+													// 	}else{
+													//  	alert(json.msg);
+												 	}
+											 }
+										 });
+										});
+									</script>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-12 space-top">
+
+								<p><strong>主讲人：</strong>{{video.expert}}</p>
+								<p>{{video.coursememo}}</p>
+								<i class="fa fa-comment-o pr-5"></i>评论数{{video.comments}} |
+								<a><i class="fa fa-thumbs-o-up pr-5 praiser" id="{{video.videoid}}">点赞</i></a><span id="praiser{{video.videoid}}">{{video.praises}}</span></a> |
+								<i class="fa fa-star-o pr-5"></i>播放数<span id="demands{{video.videoid}}">{{video.demands}}</span>
+							<br>
+						</div>
+
+						<!-- comments start -->
+						<div class="col-md-12 comments margin-clear space-top">
+							<h2 class="title">视频评论</h2>
+							{{#each comments}}
+							<!-- comment start -->
+							<div class="comment clearfix">
+								<div class="comment-avatar">
+									{{#if this.commenterimgfileid}}
+									<img src="/showImage?imgfileid={{this.commenterimgfileid}}" alt="">
+									{{else}}
+									<img src="/images/avatar.jpg" alt="">
+									{{/if}}
+								</div>
+								<div class="comment-content">
+									<div class="comment-meta">{{this.commentman}} | {{this.submittime}}</div>
+									<div class="comment-body clearfix">
+										<p>{{this.comment}}</p>
+									</div>
+								</div>
+
+							</div>
+							<!-- comment end -->
+							{{/each}}
+
+							<!-- pagination start -->
+
+							{{#if have_comment}}
+								<ul class="pagination">
+									{{#if prepage}}
+									<li><a href="/video_play?videoid={{video.videoid}}&pagenum={{prepagenum}}">上一页</a></li>
+									<li><a href="/video_play?videoid={{video.videoid}}">1</a></li>
+									{{else}}
+									<li><a>上一页</a></li>
+									{{/if}}
+									{{#if hava_precolon}}
+									<li><a>...</a></li>
+									{{/if}}
+									{{#each prepages}}
+									<li><a href="/video_play?videoid={{../video.videoid}}&pagenum={{this}}">{{this}}</a></li>
+									{{/each}}
+									<li class="active"><a>{{pagenum}}<span class="sr-only">(current)</span></a></li>
+									{{#each nextpages}}
+									<li><a href="/video_play?videoid={{../video.videoid}}&pagenum={{this}}">{{this}}</a></li>
+									{{/each}}
+									{{#if hava_postcolon}}
+									<li><a>...</a></li>
+									{{/if}}
+									{{#if nextpage}}
+									<li><a href="/video_play?videoid={{video.videoid}}&pagenum={{lastpagenum}}">{{lastpagenum}}</a></li>
+									<li><a href="/video_play?videoid={{video.videoid}}&pagenum={{nextpagenum}}">下一页</a></li>
+									{{else}}
+									<li><a>下一页</a></li>
+									{{/if}}
+								</ul>
+							{{else}}
+									还没有评论，快登录发言吧。
+									<p></p>
+							{{/if}}
+								<!-- pagination end -->
+						</div>
+						<!-- comments end -->
+
+						{{#if logined}}
+						<!-- comments form start -->
+						<div class="col-md-12 comments-form" >
+							<h2 class="title">发表评论</h2>
+							<div class="separator-2"></div>
+							<form role="form" id="comment-form"  method="post" action="/video_comment_submit">
+								<input type="hidden" name="videoid" value="{{video.videoid}}">
+								<textarea class="form-control" rows="8" id="comment" placeholder="" name="comment" required></textarea>
+								<input type="submit" value="提交" class="btn btn-default">
+							</form>
+						</div>
+						<!-- comments form end -->
+						{{/if}}
+
+						{{#if have_relatevideos}}
+						<div class="col-md-12">
+
+							<h2>相关视频</h2>
+							<div class="separator-2"></div>
+							<div class="owl-carousel carousel-autoplay">
+								{{#each relatevideos}}
+								<div class="image-box">
+									<div class="overlay-container">
+										<img src="/showImage?imgfileid={{this.coverfileid}}" alt="">
+										<a href="/video_play?videoid={{this.videoid}}" class="overlay small">
+											<i class="fa fa-link"></i>
+											<span>{{this.expert}}</span>
+										</a>
+									</div>
+									<a href="/video_play?videoid={{this.videoid}}" class="btn btn-light-gray btn-lg btn-block">{{this.videoname}}</a>
+								</div>
+								{{/each}}
+							</div>
+						</div>
+						{{/if}}
+					</div>
+				</div>
+
+			</div>
+			<!-- section end -->
+
+{{#extend "bottom_scripts"}}
+		<!-- JavaScript files placed at the end of the document so the pages load faster
+		================================================== -->
+		<!-- Jquery and Bootstap core js files -->
+		<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+
+		<!-- Modernizr javascript -->
+		<script type="text/javascript" src="/plugins/modernizr.js"></script>
+
+		<!-- Owl carousel javascript -->
+		<script type="text/javascript" src="/plugins/owl-carousel/owl.carousel.js"></script>
+
+		<!-- Magnific Popup javascript -->
+		<script type="text/javascript" src="/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+		<!-- form validate -->
+		<script src="/plugins/jquery.validate.min.js"></script>
+		<script src="/plugins/jquery.validate.message_cn.js"></script>
+
+		<!-- Appear javascript -->
+		<script type="text/javascript" src="/plugins/jquery.appear.js"></script>
+
+		<!-- Initialization of Plugins -->
+		<script type="text/javascript" src="/js/template.js"></script>
+
+		<script>
+			$(document).ready(function(){
+
+				$("#comment-form").validate({
+ 				 rules: {
+ 					 comment: {
+ 						required:true,
+ 						minlength:8,
+ 						maxlength:512}
+ 					},
+ 					messages:{
+ 						comment:{required:"需要输入评论内容",minlength:"评论内容长度在8-512个字符之间",maxlength:"评论内容长度在8-512个字符之间"}
+ 					},
+ 					submitHandler: function(form) {
+ 						form.submit();
+ 				 }
+ 			 });
+
+				$(".praiser").bind({
+					 click:function(event){
+						 var videoid = event.target.id;
+						 $.ajax({
+							 url: "/video_praiser?videoid="+videoid,
+							 type: "POST",
+							 success: function (json) {
+									if(json.result == 1){
+										 $('#praiser'+videoid).html(parseInt($('#praiser'+videoid).text())+1);
+								}else{
+									alert(json.msg);
+								}
+							}
+						});
+					 }
+			 });
+			}); // End document ready
+
+		</script>
+{{/extend}}

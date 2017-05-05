@@ -1,0 +1,225 @@
+{{#extend "stylesheets"}}
+		<!-- Plugins -->
+		<link href="/css/animations.css" rel="stylesheet">
+{{/extend}}
+
+			<!-- main-container start -->
+			<!-- ================ -->
+			<section class="main-container">
+
+				<div class="container">
+					<div class="row">
+
+						<!-- main start -->
+						<!-- ================ -->
+						<div class="main col-md-10 col-md-offset-1">
+
+							<!-- page-title start -->
+							<!-- ================ -->
+							<h1 class="page-title">问题列表</h1>
+							<div class="separator-2"></div>
+							<!-- page-title end -->
+
+							<p></p>
+
+							{{#each questions}}
+							<!-- blogpost start -->
+							<article class="clearfix blogpost">
+								<div class="blogpost-body">
+									<div class="post-info">
+										<span class="day">{{this.day}}</span>
+										<span class="month">{{this.month}} {{this.year}}</span>
+									</div>
+									<div class="blogpost-content">
+										<header>
+											<h3 class="title"><a href="/discuss_answer/?questionid={{this.questionid}}">{{this.title}}</a></h3>
+											<div class="submitted">
+												{{#if reporterimgfileid}}
+												<img src="/showImage?imgfileid={{reporterimgfileid}}" alt="" class="round_border small-image image_text_in_line">
+												{{else}}
+												<i class="fa fa-user pr-5"></i>
+												{{/if}}
+												&nbsp;提问人：{{this.reporternickname}}
+												</div>
+											<ul class="links">
+												<li><a><i class="fa fa-thumbs-o-up pr-5 praiser" id="{{this.questionid}}">点赞<span id="praiser{{this.questionid}}">{{this.praises}}</span></i></a> |</li>
+												<li><i class="fa fa-tags pr-5"></i>浏览{{this.visits}} | </li>
+												<li><i class="fa fa-tags pr-5"></i>回答{{this.answers}} </li>
+											</ul>
+										</header>
+									</div>
+								</div>
+							</article>
+							<!-- blogpost end -->
+							{{/each}}
+
+							<!-- pagination start -->
+							<ul class="pagination">
+								{{#if prepage}}
+								<li><a href="/discuss_question?pagenum={{prepagenum}}">上一	页</a></li>
+								<li><a href="/discuss_question">1</a></li>
+								{{else}}
+								<li><a>上一页</a></li>
+								{{/if}}
+								{{#if hava_precolon}}
+								<li><a>...</a></li>
+								{{/if}}
+								{{#each prepages}}
+								<li><a href="/discuss_question?pagenum={{this}}">{{this}}</a></li>
+								{{/each}}
+								<li class="active"><a>{{pagenum}}<span class="sr-only">(current)</span></a></li>
+								{{#each nextpages}}
+								<li><a href="/discuss_question?pagenum={{this}}">{{this}}</a></li>
+								{{/each}}
+								{{#if hava_postcolon}}
+								<li><a>...</a></li>
+								{{/if}}
+								{{#if nextpage}}
+								<li><a href="/discuss_question?pagenum={{lastpagenum}}">{{lastpagenum}}</a></li>
+								<li><a href="/discuss_question?pagenum={{nextpagenum}}">下一页</a></li>
+								{{else}}
+								<li><a>下一页</a></li>
+								{{/if}}
+							</ul>
+							<!-- pagination end -->
+
+							{{#if logined}}
+							<!-- comments form start -->
+							<div class="comments-form">
+								<h2 class="title">我要提问</h2>
+								<div class="separator-2"></div>
+								<form role="form" id="questionform" enctype="multipart/form-data" method="post" action="/discuss_question_submit">
+									<div class="form-group">
+										<label for="title">标题</label>
+										<input type="text" class="form-control" id="title" name="title" required>
+									</div>
+									<div class="row">
+									<div class="col-md-4">
+										<div class="form-group">
+											<label for="sectionA">学科一级分类</label>
+											<select class="form-control" id="sectiona" name='sectiona' onChange="getSectionB()">
+												<option value='0'>请选择学科一级分类</option>
+												{{#each sectiona}}
+												<option value="{{this.code}}">{{this.name}}</option>
+												{{/each}}
+											</select>
+										</div>
+										</div>
+										<div class="col-md-4">
+										<div class="form-group">
+											<label for="sectionB">学科二级分类</label>
+											<select class="form-control" id="sectionb" name="sectionb">
+												<option value='0'>请选择学科二级分类</option>
+											</select>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="question">内容</label>
+										<textarea class="form-control" rows="8" id="question" name="question" required></textarea>
+									</div>
+									<div class="form-group">
+										<label for="file">您可以一次上传最多5个图像文件（png/jpg），每个文件大小不超过2M</label>
+										<input type="file" name="file" multiple="true"/>
+									</div>
+									<input type="submit" class="btn btn-default" value="提交问题" />
+								</form>
+							</div>
+							<!-- comments form end -->
+
+							{{/if}}
+
+						</div>
+						<!-- main end -->
+
+					</div>
+				</div>
+			</section>
+			<!-- main-container end -->
+
+
+
+{{#extend "bottom_scripts"}}
+		<!-- JavaScript files placed at the end of the document so the pages load faster
+		================================================== -->
+		<!-- Jquery and Bootstap core js files -->
+		<script type="text/javascript" src="/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+
+		<!-- Modernizr javascript -->
+		<script type="text/javascript" src="/plugins/modernizr.js"></script>
+
+		<!-- Appear javascript -->
+		<script type="text/javascript" src="/plugins/jquery.appear.js"></script>
+
+		<!-- form -->
+		<script src="/plugins/jquery.validate.min.js"></script>
+
+		<!-- Initialization of Plugins -->
+		<script type="text/javascript" src="/js/template.js"></script>
+
+		<script>
+
+			function getSectionB(){
+
+				$('#sectionb').empty();
+
+				var i = 0;
+				{{#each sectionb}}
+				if($('#sectiona').val() == {{this.sectiona}}){
+					i = i + 1;
+					$('#sectionb').append($("<option value='"+{{this.code}}+"'>"+'{{this.name}}'+"</option>"));
+				}
+				{{/each}}
+
+				if(i > 0){
+					$('#sectionb').prepend($("<option value='0'>请选择学科二级分类</option>"));
+				}else{
+					$('#sectionb').prepend($("<option value='0'>无</option>"));
+				}
+			}
+
+			$(document).ready(function(){
+				$("#questionform").validate({
+	 			 rules: {
+						 title: {
+							required:true,
+							maxlength:64
+						},
+	 					 question: {
+	 						required:true,
+							minlength:5,
+	 						maxlength:512
+	 					},
+	 				},
+	 				messages:{
+						title:{required:"需要输入标题",maxlength:"标题最长不超过64个字符"},
+	 					question:{required:"需要输入问题内容",minlength:"最少输入5个字符",maxlength:"最长不超过512个字符"}
+	 				},
+	 				submitHandler: function(form) {
+						form.submit();
+	 			 }
+	 		 });
+
+
+				$(".praiser").bind({
+					 click:function(event){
+						 var questionid = event.target.id;
+						 $.ajax({
+							 url: "/discuss_question_praiser?questionid="+questionid,
+							 type: "POST",
+							 success: function (json) {
+									if(json.result == 1){
+										 $('#praiser'+questionid).html(parseInt($('#praiser'+questionid).text())+1);
+								}else{
+									alert(json.msg);
+								}
+							}
+						});
+					 }
+			 });
+
+			}); // End document ready
+		</script>
+
+{{/extend}}

@@ -1,0 +1,127 @@
+			<!-- main-container start -->
+			<!-- ================ -->
+			<section class="main-container">
+
+				<div class="container">
+					<div class="row">
+
+						<!-- main start -->
+						<!-- ================ -->
+						<div class="main col-md-10 col-md-offset-1">
+
+							<!-- page-title start -->
+							<!-- ================ -->
+							<h1 class="page-title">我的收藏</h1>
+							<div class="separator-2"></div>
+
+							{{#if hava_collect}}
+							<!-- page-title end -->
+							<form role="form" method="post" action="/my_favorite_delete" id="delete_form">
+								{{#each collects}}
+								<!-- blogpost start -->
+								<article class="clearfix blogpost">
+									<div class="blogpost-body">
+										<div class="post-info">
+											<span class="day">{{this.day}}</span>
+											<span class="month">{{this.month}} {{this.year}}</span>
+										</div>
+										<div class="blogpost-content">
+											<header>
+												<h3 class="title"><a href="{{this.url}}">{{this.objectname}}</a></h3>
+												<div><strong>类别：</strong>{{this.kind}}</div>
+												<div class="links pull-left"><input type="checkbox" id="collect" name="collect" value="{{this.collectid}}">是否删除</div>
+											</header>
+										</div>
+									</div>
+								</article>
+								<!-- blogpost end -->
+								{{/each}}
+								<label for="collect" class="error"></label><br>
+									<input type="submit" value="删除收藏" class="btn btn-default">
+								</form>
+
+							</form>
+
+							<!-- pagination start -->
+							<ul class="pagination">
+								{{#if prepage}}
+								<li><a href="/my_favorite?pagenum={{prepagenum}}">上一页</a></li>
+								<li><a href="/my_favorite">1</a></li>
+								{{else}}
+								<li><a>上一页</a></li>
+								{{/if}}
+								{{#if hava_precolon}}
+								<li><a>...</a></li>
+								{{/if}}
+								{{#each prepages}}
+								<li><a href="/my_favorite?pagenum={{this}}">{{this}}</a></li>
+								{{/each}}
+								<li class="active"><a>{{pagenum}}<span class="sr-only">(current)</span></a></li>
+								{{#each nextpages}}
+								<li><a href="/my_favorite?pagenum={{this}}">{{this}}</a></li>
+								{{/each}}
+								{{#if hava_postcolon}}
+								<li><a>...</a></li>
+								{{/if}}
+								{{#if nextpage}}
+								<li><a href="/my_favorite?pagenum={{lastpagenum}}">{{lastpagenum}}</a></li>
+								<li><a href="/my_favorite?pagenum={{nextpagenum}}">下一页</a></li>
+								{{else}}
+								<li><a>下一页</a></li>
+								{{/if}}
+							</ul>
+							<!-- pagination end -->
+
+							{{else}}
+
+							<h2>没有收藏的会议、视频、问题或回答！</h2>
+
+							{{/if}}
+
+						</div>
+						<!-- main end -->
+
+					</div>
+				</div>
+			</section>
+			<!-- main-container end -->
+
+{{#extend "bottom_scripts"}}
+		<!-- JavaScript files placed at the end of the document so the pages load faster
+		================================================== -->
+		<!-- Jquery and Bootstap core js files -->
+		<script type="text/javascript" src="/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+
+		<!-- Modernizr javascript -->
+		<script type="text/javascript" src="/plugins/modernizr.js"></script>
+
+		<!-- Appear javascript -->
+		<script type="text/javascript" src="/plugins/jquery.appear.js"></script>
+
+		<!-- form validate -->
+		<script src="/plugins/jquery.validate.min.js"></script>
+		<script src="/plugins/jquery.validate.message_cn.js"></script>
+
+		<!-- Initialization of Plugins -->
+		<script type="text/javascript" src="/js/template.js"></script>
+
+		<script>
+		$(document).ready(function(){
+			$("#delete_form").validate({
+				rules: {
+						collect: {
+						 required: true,
+						 minlength: 1
+					 }
+				 },
+				 messages:{
+					 collect:"必须选择至少一个待删除的收藏"
+				 },
+				 submitHandler: function(form) {
+					 form.submit();
+				}
+			});
+		});
+		</script>
+{{/extend}}

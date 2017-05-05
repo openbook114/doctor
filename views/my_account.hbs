@@ -1,0 +1,277 @@
+
+			<!-- main-container start -->
+			<!-- ================ -->
+			<section class="main-container">
+
+				<div class="container">
+					<div class="row">
+
+						<!-- main start -->
+						<!-- ================ -->
+						<div class="main col-md-8  col-md-offset-2">
+
+							<!-- page-title start -->
+							<!-- ================ -->
+							<h1 class="page-title">账户信息修改</h1>
+							<!-- page-title end -->
+							<div>
+								<form id="accountform" class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="/my_account_submit">
+									<input type="hidden" name="{{personinfo.memberid}}">
+									<div class="form-group has-feedback">
+										<label for="name" class="col-sm-2 control-label">姓名*</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" id="name" name="name" value="{{personinfo.name}}">
+											<i class="fa fa-user form-control-feedback"></i>
+										</div>
+										<label for="cardno" class="col-sm-2 control-label">身份证*</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" id="cardno" name="cardno" value="{{personinfo.cardno}}">
+											<i class="fa fa-newspaper-o form-control-feedback"></i>
+										</div>
+									</div>
+									<div class="form-group has-feedback">
+										<label for="nickname" class="col-sm-2 control-label">昵称*</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" id="nickname" name="nickname" value="{{personinfo.nickname}}">
+											<i class="fa fa-hand-o-left form-control-feedback"></i>
+										</div>
+										<label for="position" class="col-sm-2 control-label">职务</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" id="position" name="position" value="{{personinfo.position}}">
+											<i class="fa fa-user-md form-control-feedback"></i>
+										</div>
+									</div>
+									<div class="form-group has-feedback">
+										<label for="hospital" class="col-sm-2 control-label">所在医院*</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" id="hospital" name="hospital" value="{{personinfo.hospital}}">
+											<i class="fa fa-hospital-o form-control-feedback"></i>
+										</div>
+										<label for="sections" class="col-sm-2 control-label">科室*</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" id="sections" name="sections" value="{{personinfo.section}}">
+											<i class="fa fa-plus-square form-control-feedback"></i>
+										</div>
+									</div>
+									<div class="form-group has-feedback">
+										<label for="email" class="col-sm-2 control-label">邮箱</label>
+										<div class="col-sm-4">
+											<input type="email" class="form-control" id="email" name="email" value="{{personinfo.email}}">
+											<i class="fa fa-envelope form-control-feedback"></i>
+										</div>
+										<label for="qq" class="col-sm-2 control-label">QQ号</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" id="qq" name="qq" value="{{personinfo.qq}}">
+											<i class="fa fa-qq form-control-feedback"></i>
+										</div>
+									</div>
+									<div class="form-group has-feedback">
+										<label for="weixin" class="col-sm-2 control-label">微信号</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" id="weixin" name="weixin" value="{{personinfo.weixin}}">
+											<i class="fa fa-weixin form-control-feedback"></i>
+										</div>
+										<label for="wxnickname" class="col-sm-2 control-label">微信昵称</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" id="wxnickname" name="wxnickname" value="{{personinfo.wxnickname}}">
+											<i class="fa fa-check-circle form-control-feedback"></i>
+										</div>
+									</div>
+									<div class="form-group has-feedback">
+										<label for="sex" class="col-sm-2 control-label">性别</label>
+										<div class="col-sm-4">
+											{{#if female}}
+											<label>
+												<input type="radio" name="sex" value="男">
+												男
+											</label>
+											<label>
+												<input type="radio" name="sex" value="女" checked>
+												女
+											</label>
+											{{else}}
+											<label>
+												<input type="radio" name="sex" value="男" checked>
+												男
+											</label>
+											<label>
+												<input type="radio" name="sex" value="女">
+												女
+											</label>
+											{{/if}}
+										</div>
+									</div>
+
+									<div class="form-group has-feedback">
+										<label for="nationnality" class="col-sm-2 control-label">民族</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" id="nationnality" name="nationnality" value="{{personinfo.nationnality}}">
+											<i class="fa fa-list form-control-feedback"></i>
+										</div>
+										<label for="birthday" class="col-sm-2 control-label">生日</label>
+										<div class="col-sm-4">
+											<input type="date" class="form-control" id="birthday" name="birthday" value="{{personinfo.birthday}}">
+											<i class="fa fa-birthday-cake form-control-feedback"></i>
+										</div>
+									</div>
+
+									<div class="form-group has-feedback">
+										<label for="academic" class="col-sm-2 control-label">学历</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" id="academic" name="academic" value="{{personinfo.academic}}">
+											<i class="fa fa-book form-control-feedback"></i>
+										</div>
+										<label for="diploma" class="col-sm-2 control-label">学位</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" id="diploma" name="diploma" value="{{personinfo.diploma}}">
+											<i class="fa fa-briefcase form-control-feedback"></i>
+										</div>
+									</div>
+									<div class="form-group has-feedback">
+										<label for="province" class="col-sm-2 control-label">省</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" id="province" name="province" value="{{personinfo.province}}">
+											<i class="fa fa-building form-control-feedback"></i>
+										</div>
+										<label for="city" class="col-sm-2 control-label">城市</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" id="city" name="city" value="{{personinfo.city}}">
+											<i class="fa fa-bank form-control-feedback"></i>
+										</div>
+									</div>
+									<div class="form-group has-feedback">
+										<label for="professionaltitle" class="col-sm-2 control-label">职称</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" id="professionaltitle" name="professionaltitle" value="{{personinfo.professionaltitle}}">
+											<i class="fa fa-beer form-control-feedback"></i>
+										</div>
+										<label for="linktel" class="col-sm-2 control-label">联系电话</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control" id="linktel" name="linktel" value="{{personinfo.linktel}}">
+											<i class="fa fa-mobile-phone form-control-feedback"></i>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="file" class="col-sm-2 control-label">头像</label>
+										<div class="col-sm-4">
+												{{#if personinfo.imgfileid}}
+												<img src="/showImage?imgfileid={{personinfo.imgfileid}}" alt="" class="img-circle">
+												{{else}}
+												您还没有设置头像
+												{{/if}}
+										</div>
+										<div class="col-sm-6">
+											<input type="file" name="file"/>
+										</div>
+									</div>
+									<div class="form-group has-feedback">
+										<label for="memo" class="col-sm-2 control-label">备注</label>
+										<div class="col-sm-10">
+											<textarea class="form-control" rows="8" id="memo" placeholder="" name="memo">{{personinfo.memo}}</textarea>
+											<i class="fa fa-envelope-o form-control-feedback"></i>
+										</div>
+									</div>
+									<input type="submit" value="提交" class="btn btn-default">
+								</form>
+							</div>
+						</div>
+						<!-- main end -->
+
+					</div>
+				</div>
+			</section>
+			<!-- main-container end -->
+
+{{#extend "bottom_scripts"}}
+
+		<!-- JavaScript files placed at the end of the document so the pages load faster
+		================================================== -->
+		<!-- Jquery and Bootstap core js files -->
+		<script type="text/javascript" src="/plugins/jquery.js"></script>
+		<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+
+		<!-- Modernizr javascript -->
+		<script type="text/javascript" src="/plugins/modernizr.js"></script>
+
+		<!-- Appear javascript -->
+		<script type="text/javascript" src="/plugins/jquery.appear.js"></script>
+
+		<!-- Contact form -->
+		<script src="/plugins/jquery.validate.js"></script>
+
+		<!-- form validate -->
+		<script src="/plugins/jquery.validate.min.js"></script>
+		<script src="/plugins/jquery.validate.message_cn.js"></script>
+		<script src="/js/cardno.js"></script>
+
+		<!-- Initialization of Plugins -->
+		<script type="text/javascript" src="/js/template.js"></script>
+
+		<script>
+
+		$(document).ready(function(){
+
+			jQuery.validator.addMethod("isIdCardNo", function (value, element){
+					return this.optional(element) || isIdCardNo(value);
+			 },"请正确输入您的身份证号码");
+
+		 $("#accountform").validate({
+			 rules: {
+					 name: {
+						required:true,
+						maxlength:20
+					},
+					cardno:{
+						required:true,
+						isIdCardNo:true
+					},
+					nickname:{
+						required:true,
+						maxlength:128
+					},
+					position:{
+						maxlength:128
+					},
+					hospital:{
+						required:true,
+						maxlength:256
+					},
+					sections:{
+						required:true,
+						maxlength:256
+					},
+					email:{
+						email:true
+					},
+					qq:{
+						number:true,
+						maxlength:20
+					},
+					weixin:{
+						maxlength:128
+					},
+					wxnickname:{
+						maxlength:128
+					}
+				},
+				messages:{
+					name:{required:"需要输入姓名",maxlength:"姓名最长不超过20个字符"},
+					cardno:{required:"请输入身份证号",isIdCardNo:"请输入正确的身份证号"},
+					nickname:{required:"需要输入昵称",maxlength:"昵称最长不超过128个字符"},
+					position:{maxlength:"职称最长不超过128个字符"},
+					hospital:{required:"需要输入医院",maxlength:"医院最长不超过256个字符"},
+					sections:{required:"需要输入科室",maxlength:"科室最长不超过256个字符"},
+					email:{email:"请输入正确的email"},
+					qq:{number:"qq必须为数字",maxlength:"qq最长不超过20个字符"},
+					weixin:{maxlength:"微信最长不超过128个字符"},
+					wxnickname:{maxlength:"微信昵称最长不超过128个字符"}
+				},
+				submitHandler: function(form) {
+					form.submit();
+			 }
+		 });
+		}); // End document ready
+
+		</script>
+
+{{/extend}}
