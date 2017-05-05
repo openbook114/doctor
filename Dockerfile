@@ -2,10 +2,10 @@ FROM node:7-onbuild
 
 WORKDIR /app
 
-RUN npm install -g pm2 && \
-    apt-get update && apt-get install -y vim
-
 COPY . /app/
+
+RUN npm install -g pm2 && \
+	npm install
 
 EXPOSE 3000
 
