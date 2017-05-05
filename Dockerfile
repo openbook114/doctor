@@ -1,8 +1,8 @@
 FROM node:7-onbuild
 
-WORKDIR /app
+WORKDIR /usr/src/app/
 
-COPY . /app/
+COPY . /usr/src/app/
 
 RUN npm install -g pm2 && \
 	npm install
