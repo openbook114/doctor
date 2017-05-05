@@ -9,4 +9,4 @@ RUN npm install -g pm2 && \
 
 EXPOSE 3000
 
-CMD pm2 start process.json
+CMD pm2 start /app/process.json
