@@ -2,11 +2,8 @@ FROM node:7-onbuild
 
 WORKDIR /usr/src/app/
 
-COPY . /usr/src/app/
-
-RUN npm install -g pm2 && \
-	npm install
+RUN npm install -g pm2
 
 EXPOSE 3000
 
-CMD npm start
+CMD npm pm2 start process.json
