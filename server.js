@@ -1968,6 +1968,6 @@ http.on("error", function(error) {
 });
 
 //监听浏览器80端口访问
-http.listen(80, function(){
-    console.log('listening on *:80');
+http.listen(3000, function(){
+    console.log('listening on *:3000');
 });
