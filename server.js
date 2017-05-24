@@ -33,7 +33,7 @@ let bodyParser = require('body-parser');
 // const cookieParser = require('cookie-parser');
 // app.use(cookieParser('doc2017'));
 
-const MongoStore = require('connect-mongo')(session);
+// const MongoStore = require('connect-mongo')(session);
 
 //Session使用mongodb Store
 // app.use(session({
