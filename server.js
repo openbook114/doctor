@@ -33,7 +33,7 @@ let bodyParser = require('body-parser');
 // const cookieParser = require('cookie-parser');
 // app.use(cookieParser('doc2017'));
 
-// const MongoStore = require('connect-mongo')(session);
+const MongoStore = require('connect-mongo')(session);
 
 //Session使用mongodb Store
 // app.use(session({
@@ -143,7 +143,7 @@ router.post('/login', async function (req, res) {
       req.session.memberid = data.memberid;
       req.session.token = data.token;
       req.session.nickname = data.nickname;
-      console.log(req.headers.referer);
+      // console.log(req.headers.referer);
       res.redirect(req.headers.referer);//返回前一页
     }
   }catch(err){
@@ -382,16 +382,16 @@ router.post('/meeting_enroll_submit', async function (req, res) {
     return;
   }
   const meetingid = req.body.meetingid;
-  const name = req.body.name;
+  const name = utils.xss(req.body.name);
   const cardno = req.body.cardno;
-  const nickname = req.body.nickname;
-  const hospital = req.body.hospital;
-  const section = req.body.sections;
-  const position = req.body.position;
-  const qq = req.body.qq;
-  const weixin = req.body.weixin;
-  const wxnickname = req.body.wxnickname;
-  const email = req.body.email;
+  const nickname = utils.xss(req.body.nickname);
+  const hospital = utils.xss(req.body.hospital);
+  const section = utils.xss(eq.body.sections);
+  const position = utils.xss(req.body.position);
+  const qq = utils.xss(req.body.qq);
+  const weixin = utils.xss(req.body.weixin);
+  const wxnickname = utils.xss(req.body.wxnickname);
+  const email = utils.xss(req.body.email);
   const issharemymsg = req.body.issharemymsg;
   try{
       const payload = {'memberid':memberid,'token':token,'json_param':'{"meetingid":"'+meetingid+'", \
@@ -408,7 +408,6 @@ router.post('/meeting_enroll_submit', async function (req, res) {
         "issharemymsg":"'+issharemymsg+'"\
       }'}
 
-      console.log(payload);
       const body = await request.post({url:baseUrl+'/meeting/registeMeeting',form:payload});
       const data = JSON.parse(body);
       if (data.result == 1){
@@ -1046,7 +1045,7 @@ router.post('/meeting_comment_submit', async function (req, res) {
     });
   }else{
     const meetingid = req.body.meetingid;
-    const comment = req.body.comment;
+    const comment = utils.xss(req.body.comment);
 
     try{
         //提交会议评论
@@ -1084,7 +1083,7 @@ router.post('/video_comment_submit', async function (req, res) {
     });
   }else{
     const videoid = req.body.videoid;
-    const comment = req.body.comment;
+    const comment = utils.xss(req.body.comment);
 
     try{
         //提交会议评论
@@ -1636,27 +1635,27 @@ router.post('/my_account_submit', upload.single('file') , async function (req, r
     return;
   }
   const meetingid = req.body.meetingid;
-  const name = req.body.name;
+  const name = utils.xss(req.body.name);
   const cardno = req.body.cardno;
-  const nickname = req.body.nickname;
-  const hospital = req.body.hospital;
-  const section = req.body.sections;
-  const position = req.body.position;
-  const qq = req.body.qq;
-  const weixin = req.body.weixin;
-  const wxnickname = req.body.wxnickname;
-  const email = req.body.email;
+  const nickname = utils.xss(req.body.nickname);
+  const hospital = utils.xss(req.body.hospital);
+  const section = utils.xss(req.body.sections);
+  const position = utils.xss(req.body.position);
+  const qq = utils.xss(req.body.qq);
+  const weixin = utils.xss(req.body.weixin);
+  const wxnickname = utils.xss(req.body.wxnickname);
+  const email = utils.xss(req.body.email);
 
   const sex = req.body.sex;
-  const nationnality = req.body.nationnality;
+  const nationnality = utils.xss(req.body.nationnality);
   const birthday = req.body.birthday;
-  const academic = req.body.academic;
-  const diploma = req.body.diploma;
-  const province = req.body.province;
-  const city = req.body.city;
-  const professionaltitle = req.body.professionaltitle;
-  const linktel = req.body.linktel;
-  const memo = req.body.memo;
+  const academic = utils.xss(req.body.academic);
+  const diploma = utils.xss(req.body.diploma);
+  const province = utils.xss(req.body.province);
+  const city = utils.xss(req.body.city);
+  const professionaltitle = utils.xss(req.body.professionaltitle);
+  const linktel = utils.xss(req.body.linktel);
+  const memo = utils.xss(req.body.memo);
   const photofile = req.file;
 
   try{
@@ -1685,32 +1684,37 @@ router.post('/my_account_submit', upload.single('file') , async function (req, r
       const body = await request.post({url:baseUrl+'/member/modifyPersonInfo',form:payload});
       const data = JSON.parse(body);
 
-      //生成formData用于提交form到后台API
-      var formData = {
-        memberid:memberid,
-        token:token,
-        file:{
-          value:fs.createReadStream(path.join(__dirname ,photofile.path)),
-          options:{
-            filename:photofile.originalname,
-            contentType:'image/jpeg',
-            contentLength:photofile.size
+      var modifyphoto = 1;//成功更新头像
+      if(photofile){
+        //生成formData用于提交form到后台API
+        let formData = {
+          memberid:memberid,
+          token:token,
+          file:{
+            value:fs.createReadStream(path.join(__dirname ,photofile.path)),
+            options:{
+              filename:photofile.originalname,
+              contentType:'image/jpeg',
+              contentLength:photofile.size
+            }
           }
-        }
-      };
+        };
 
-      let body2 = await request.post({url:baseUrl+'/member/modifyMyPhoto',formData:formData});
-      let data2 = JSON.parse(body2);
+        let body2 = await request.post({url:baseUrl+'/member/modifyMyPhoto',formData:formData});
+        let data2 = JSON.parse(body2);
 
-      //删除上传的文件
-      fs.unlink(path.join(__dirname,photofile.path),function(errro){
-        if(errro){
-          throw error;
-        }
-      });
+        //删除上传的文件
+        fs.unlink(path.join(__dirname,photofile.path),function(errro){
+          if(errro){
+            throw error;
+          }
+        });
+
+        modifyphoto = data2.result;
+      }
 
       if (data.result == 1){
-        if(data2.result == 1){
+        if(modifyphoto == 1){
           res.render("message",{
             title:'账户管理',
             logined:token ? true : false,
@@ -1846,10 +1850,10 @@ router.post('/discuss_question_submit', upload.array('file', 5) , async function
     return;
   }
   const questionid = req.body.questionid;
-  const question = req.body.question;
   const sectiona = req.body.sectiona;
   const sectionb = req.body.sectionb;
-  const title = req.body.title;
+  const title = utils.xss(req.body.title);
+  const question = utils.xss(req.body.question);
 
   //生成上传文件列表
   let uploadfiles = utils.makeformdatafile(req.files);
@@ -1910,7 +1914,7 @@ router.post('/discuss_answer_submit', upload.array('file', 5) , async function (
     return;
   }
   const questionid = req.body.questionid;
-  const answer = req.body.answer;
+  const answer = utils.xss(req.body.answer);
 
   //生成上传文件列表
   let uploadfiles = utils.makeformdatafile(req.files);
@@ -1950,13 +1954,20 @@ router.post('/discuss_answer_submit', upload.array('file', 5) , async function (
   }
 });
 
+// router.get('/download', function (req, res) {
+//   res.writeHead(200, {"Content-Type": "text/html"});
+//   fs.readFile(path.join(__dirname,'/download.html'),function (err,data){
+//       res.end(data);
+//   });
+// });
+
 app.use('/', router);
 
 http.on("error", function(error) {
     console.log(error);
 });
 
-//监听浏览器3000端口访问
-http.listen(3000, function(){
-    console.log('listening on *:3000');
+//监听浏览器80端口访问
+http.listen(80, function(){
+    console.log('listening on *:80');
 });

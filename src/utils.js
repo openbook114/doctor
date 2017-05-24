@@ -1,5 +1,18 @@
 const fs = require('fs');
 const path = require('path');
+const xss = require('xss');
+
+
+exports.xss = function(content){
+  //防止xss攻击，去掉HTML标签
+  return xss(content, {
+      whiteList:          [],        // 白名单为空，表示过滤所有标签
+      stripIgnoreTag:     true,      // 过滤所有非白名单标签的HTML
+      stripIgnoreTagBody: ['script'] // script标签较特殊，需要过滤标签中间的内容
+  });
+
+}
+
 
 //将arr数组按每行显示numperline个元素重新成立成二维数组，用于前台hbs显示
 //输入格式oldarr:[object,object...]
