@@ -2,7 +2,7 @@ FROM node:7-onbuild
 
 WORKDIR /usr/src/app/
 
-RUN npm install -g pm2
+RUN npm install -g pm2 && npm install
 
 EXPOSE 3000
 
