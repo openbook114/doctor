@@ -1967,7 +1967,7 @@ http.on("error", function(error) {
     console.log(error);
 });
 
-//监听浏览器80端口访问
+//监听浏览器3000端口访问
 http.listen(3000, function(){
     console.log('listening on *:3000');
 });

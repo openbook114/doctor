@@ -1,6 +1,6 @@
 {
 	"apps": [{
-		"script": "server.js",
+		"script": "./server.js",
 		"node_args": "--harmony-async-await",
 		"log_date_format": "YYYY-MM-DD HH:mm Z"
 	}]
