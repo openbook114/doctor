@@ -81,7 +81,8 @@ app.use(logger('common', {skip: function (req, res) { return res.statusCode == 3
 var utils = require('./src/utils')
 
 //常量声明
-const baseUrl = "http://182.92.183.115:2090/HaiShen/services";
+// const baseUrl = "http://182.92.183.115:2090/HaiShen/services";
+const baseUrl = "http://59.110.233.147:2090/HaiShen/services";
 const meetingpagesize = 12;//每页显示的会议数
 const videopagesize = 12;//每页显示的视频数
 const commentpagesize = 10;//每页显示的评论数
